@@ -1,22 +1,23 @@
 <template>
   <div class="home">
   <div v-if="list.length > 0"></div>
-    <div v-for="i in list" :key="i.id">
-    <p>{{ i.title }}</p>
+    <div v-for="item in list" :key="item.id">
+      <Singleitem :item="item" />
     </div>
   </div>
 </template>
 
 <script>
+import Singleitem from "../components/Singleitem.vue";
 export default {
   name: 'Home',
-  components: {},
+  components: { Singleitem },
   data() {
     return {
       list: []
     }
   },
-  mounted() {
+  mounted() { 
     fetch('http://localhost:3000/list')
       .then(res => res.json())
       .then(data => this.list = data)
