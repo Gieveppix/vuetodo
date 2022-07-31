@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="handleUpdate">
     <label>Title:</label>
     <input type="text" v-model="title" required>
     <label>Details:</label>
@@ -16,7 +16,7 @@ export default {
         return {
             uri: 'http://localhost:3000/list/' + this.id,
             title: '',
-            details: ''
+            details: '',
         }
     },
     mounted() {
@@ -26,6 +26,17 @@ export default {
                 this.title = data.title
                 this.details = data.details
         }).catch(err => console.log(err))
+    },
+    methods: {
+        handleUpdate() {
+            fetch(this.uri, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title: this.title, details: this.details})
+            }).then(() => {
+                this.$router.push('/')
+            }).catch((err) => console.log(err))
+        }
     }
 }
 </script>
