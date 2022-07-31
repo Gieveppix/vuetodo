@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import AddItem from '../views/AddItem.vue'
+import EditItem from '../views/EditItem.vue'
 
 const routes = [
   {
@@ -12,6 +13,12 @@ const routes = [
     path: '/add',
     name: 'AddItem',
     component: AddItem
+  },
+  {
+    path: '/list/:id',
+    name: 'EditItem',
+    component: EditItem,
+    props: true
   }
 ]
 

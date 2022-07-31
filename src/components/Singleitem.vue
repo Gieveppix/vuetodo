@@ -4,7 +4,9 @@
         <h3 @click="toggleDetails" >{{ item.title }}</h3>
         <div class="icons">
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-          <span class="material-symbols-outlined">edit</span>
+          <router-link :to="{ name: 'EditItem', params: { id: item.id} }">
+            <span class="material-symbols-outlined">edit</span>
+          </router-link>
           <span @click="deleteItem" class="material-symbols-outlined">delete</span>
           
           <span @click="toggleDone" v-show="item.done" class="material-symbols-outlined tick">done</span>
