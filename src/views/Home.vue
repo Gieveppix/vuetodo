@@ -1,7 +1,8 @@
 <template>
   <div class="home">
+  <FilterNav @filterChange="currentFilter = $event" :currentFilter="currentFilter" />
   <div v-if="list.length > 0"></div>
-    <div v-for="item in list" :key="item.id">
+    <div v-for="item in filteredItems" :key="item.id">
       <Singleitem :item="item" @delete="handleDelete" @done="handleDone" />
     </div>
   </div>
@@ -9,12 +10,15 @@
 
 <script>
 import Singleitem from "../components/Singleitem.vue";
+import FilterNav from "../components/FilterNav.vue";
+
 export default {
   name: 'Home',
-  components: { Singleitem },
+  components: { Singleitem, FilterNav, FilterNav },
   data() {
     return {
-      list: []
+      list: [],
+      currentFilter: 'all'
     }
   },
   mounted() { 
@@ -34,6 +38,17 @@ export default {
         return item.id === id
       })
       l.done = !l.done
+    }
+  },
+  computed: {
+    filteredItems() {
+      if (this.currentFilter === 'done'){
+        return this.list.filter(list => list.done)
+      }
+      if (this.currentFilter === 'inProgres'){
+        return this.list.filter(list => !list.done)
+      }
+      return this.list
     }
   }
 }
